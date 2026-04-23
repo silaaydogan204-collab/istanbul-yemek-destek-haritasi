@@ -1,3 +1,4 @@
+import React from 'react';
 import { motion } from 'motion/react';
 import { ChevronRight, Utensils, Database, Mail, ExternalLink, ShieldCheck, Heart, Map as MapIcon } from 'lucide-react';
 
@@ -6,7 +7,12 @@ interface LandingPageProps {
 }
 
 export default function LandingPage({ onStart }: LandingPageProps) {
-  const contactUrl = "mailto:silanuraydogan23@gmail.com?subject=İstanbul Dayanışma Haritası Geri Bildirim&body=Merhaba, proje hakkında geri bildirim paylaşmak istiyorum.";
+  const handleContact = (e: React.MouseEvent) => {
+    e.preventDefault();
+    const subject = encodeURIComponent("İstanbul Dayanışma Haritası Geri Bildirim");
+    const body = encodeURIComponent("Merhaba, proje hakkında geri bildirim paylaşmak istiyorum.");
+    window.location.href = `mailto:silanuraydogan23@gmail.com?subject=${subject}&body=${body}`;
+  };
 
   return (
     <div className="min-h-screen bg-orange-50 text-slate-800 font-sans selection:bg-orange-200">
@@ -23,10 +29,10 @@ export default function LandingPage({ onStart }: LandingPageProps) {
           <button onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} className="px-3 py-2 hover:text-orange-500 transition-colors cursor-pointer">Anasayfa</button>
           <button onClick={onStart} className="px-3 py-2 text-orange-600 hover:text-orange-700 transition-colors cursor-pointer">Harita</button>
           <button onClick={() => document.getElementById('data-sources')?.scrollIntoView({ behavior: 'smooth' })} className="px-3 py-2 hover:text-orange-500 transition-colors cursor-pointer">Veri Seviyesi</button>
-          <a href={contactUrl} className="hidden md:flex items-center gap-2 bg-orange-500 text-white px-5 py-2.5 rounded-full hover:bg-orange-600 shadow-md transition-all active:scale-95">
+          <button onClick={handleContact} className="hidden md:flex items-center gap-2 bg-orange-500 text-white px-5 py-2.5 rounded-full hover:bg-orange-600 shadow-md transition-all active:scale-95 cursor-pointer border-none">
             <Mail className="w-4 h-4" />
             Bize Ulaş
-          </a>
+          </button>
         </div>
       </nav>
 
@@ -60,12 +66,12 @@ export default function LandingPage({ onStart }: LandingPageProps) {
               Haritaya Git
               <ChevronRight className="w-6 h-6 group-hover:translate-x-1 transition-transform" />
             </button>
-            <a 
-              href={contactUrl}
+            <button 
+              onClick={handleContact}
               className="flex items-center justify-center gap-3 bg-white border-2 border-orange-100 text-slate-700 px-10 py-5 rounded-2xl text-lg font-bold hover:bg-orange-50 transition-all cursor-pointer"
             >
               Geri Bildirim Paylaş
-            </a>
+            </button>
           </div>
         </motion.div>
 
@@ -163,10 +169,13 @@ export default function LandingPage({ onStart }: LandingPageProps) {
             </div>
             
             <div className="flex flex-wrap gap-4 md:justify-end">
-              <a href={contactUrl} className="bg-white/10 hover:bg-white/20 px-8 py-4 rounded-2xl font-bold flex items-center gap-3 transition-all border border-white/5">
+              <button 
+                onClick={handleContact}
+                className="bg-white/10 hover:bg-white/20 px-8 py-4 rounded-2xl font-bold flex items-center gap-3 transition-all border border-white/5 cursor-pointer"
+              >
                 <Mail className="w-5 h-5 text-orange-500" />
                 Bize Ulaşın
-              </a>
+              </button>
               <button onClick={onStart} className="bg-orange-500 hover:bg-orange-600 px-8 py-4 rounded-2xl font-bold flex items-center gap-3 transition-all shadow-lg shadow-orange-500/20">
                 <MapIcon className="w-5 h-5" />
                 Haritayı Aç
