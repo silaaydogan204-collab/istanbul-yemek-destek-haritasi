@@ -1,110 +1,187 @@
 import { motion } from 'motion/react';
-import { ChevronRight, Utensils } from 'lucide-react';
+import { ChevronRight, Utensils, Database, Mail, ExternalLink, ShieldCheck, Heart, Map as MapIcon } from 'lucide-react';
 
 interface LandingPageProps {
   onStart: () => void;
 }
 
 export default function LandingPage({ onStart }: LandingPageProps) {
-  return (
-    <div className="min-h-screen bg-orange-50 text-slate-800 overflow-hidden">
-      {/* Background decoration */}
-      <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-orange-500/5 rounded-full blur-3xl -mr-64 -mt-64" />
-      <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-orange-500/10 rounded-full blur-3xl -ml-32 -mb-32" />
+  const contactUrl = "mailto:silanuraydogan23@gmail.com?subject=İstanbul Dayanışma Haritası Geri Bildirim&body=Merhaba, proje hakkında geri bildirim paylaşmak istiyorum.";
 
-      <nav className="relative z-10 px-8 py-6 flex justify-between items-center max-w-7xl mx-auto h-16 bg-white/80 backdrop-blur-md border-b border-orange-100 mt-4 rounded-2xl shadow-sm">
-        <div className="flex items-center gap-2 font-sans text-2xl font-bold tracking-tight text-orange-900">
-          <div className="w-8 h-8 bg-orange-500 rounded-lg flex items-center justify-center">
-            <Utensils className="w-5 h-5 text-white" />
+  return (
+    <div className="min-h-screen bg-orange-50 text-slate-800 font-sans selection:bg-orange-200">
+      {/* Navigation */}
+      <nav className="sticky top-4 z-50 px-6 max-w-7xl mx-auto h-16 flex items-center justify-between bg-white/80 backdrop-blur-md border border-orange-100 rounded-2xl shadow-lg mt-4">
+        <div className="flex items-center gap-2 font-black text-2xl tracking-tighter text-orange-900">
+          <div className="w-10 h-10 bg-orange-500 rounded-xl flex items-center justify-center shadow-lg shadow-orange-500/20">
+            <Utensils className="w-6 h-6 text-white" />
           </div>
-          <span>İstYemek</span>
+          <span className="hidden sm:inline">İstYemek</span>
         </div>
-        <div className="flex items-center space-x-6 text-sm font-medium text-slate-600">
-          <button onClick={onStart} className="text-orange-600 hover:text-orange-700 transition-colors cursor-pointer">Harita</button>
-          <button className="hover:text-orange-500 transition-colors cursor-pointer">Hakkımızda</button>
-          <button className="bg-orange-500 text-white px-4 py-2 rounded-full hover:bg-orange-600 shadow-sm transition-all cursor-pointer">Gönüllü Ol</button>
+        
+        <div className="flex items-center space-x-1 sm:space-x-8 text-xs sm:text-sm font-bold text-slate-600">
+          <button onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} className="px-3 py-2 hover:text-orange-500 transition-colors cursor-pointer">Anasayfa</button>
+          <button onClick={onStart} className="px-3 py-2 text-orange-600 hover:text-orange-700 transition-colors cursor-pointer">Harita</button>
+          <button onClick={() => document.getElementById('data-sources')?.scrollIntoView({ behavior: 'smooth' })} className="px-3 py-2 hover:text-orange-500 transition-colors cursor-pointer">Veri Seviyesi</button>
+          <a href={contactUrl} className="hidden md:flex items-center gap-2 bg-orange-500 text-white px-5 py-2.5 rounded-full hover:bg-orange-600 shadow-md transition-all active:scale-95">
+            <Mail className="w-4 h-4" />
+            Bize Ulaş
+          </a>
         </div>
       </nav>
 
-      <main className="relative z-10 max-w-7xl mx-auto px-8 pt-20 pb-32 grid lg:grid-cols-2 gap-12 items-center">
+      {/* Hero Section */}
+      <main className="max-w-7xl mx-auto px-6 py-20 lg:py-32 grid lg:grid-cols-2 gap-16 items-center">
         <motion.div
-          initial={{ opacity: 0, x: -50 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.8, ease: "easeOut" }}
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
         >
-          <div className="inline-block px-3 py-1 bg-green-100 text-green-700 text-xs font-bold rounded-full uppercase tracking-wider mb-6">
-            Güncel Veri: 2024
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-green-100 text-green-700 text-[10px] font-black rounded-full uppercase tracking-[0.2em] mb-8 border border-green-200">
+            <ShieldCheck className="w-3.5 h-3.5" />
+            Güncel Veri Seti
           </div>
           
-          <h1 className="font-sans text-6xl md:text-7xl leading-tight mb-8 font-extrabold text-slate-900">
-            İstanbul <br/>
-            <span className="text-orange-500 font-black italic">Dayanışma</span> Haritası
+          <h1 className="text-6xl md:text-8xl font-black text-slate-900 leading-[0.9] tracking-tighter mb-10">
+            Şehirde <br/>
+            <span className="text-orange-500 italic">Dayanışma</span> <br/>
+            Haritası.
           </h1>
           
-          <p className="text-lg md:text-xl text-slate-600 mb-10 max-w-lg leading-relaxed">
-            Şehrin 39 ilçesinde faaliyet gösteren aşevleri ve yemek dağıtım noktalarına tek bir noktadan ulaşın.
+          <p className="text-xl text-slate-600 mb-12 max-w-lg leading-relaxed">
+            İstanbul'un 39 ilçesindeki aşevleri, kent lokantaları ve ücretsiz yemek dağıtım noktaları artık tek bir platformda. Erişilebilir, şeffaf ve güncel koordinatlarla.
           </p>
 
-          <motion.button
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            onClick={onStart}
-            className="group flex items-center gap-3 bg-orange-500 text-white px-10 py-5 rounded-full text-lg font-bold shadow-xl shadow-orange-500/20 hover:bg-orange-600 transition-all cursor-pointer"
-          >
-            Haritayı Keşfet
-            <ChevronRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-          </motion.button>
-
-          <div className="mt-16 grid grid-cols-1 sm:grid-cols-2 gap-4 max-w-md">
-            <div className="flex items-center space-x-4 p-4 bg-orange-100/50 rounded-2xl border border-orange-200/50">
-              <div className="w-12 h-12 bg-white rounded-xl shadow-sm flex items-center justify-center text-xl font-bold text-orange-600">42</div>
-              <div>
-                <p className="font-bold text-slate-800">Aktif Aşevi</p>
-                <p className="text-slate-500 italic text-xs">Belediye & Vakıf Destekli</p>
-              </div>
-            </div>
-            <div className="flex items-center space-x-4 p-4 bg-green-50 rounded-2xl border border-green-100">
-              <div className="w-12 h-12 bg-white rounded-xl shadow-sm flex items-center justify-center text-xl font-bold text-green-600">18</div>
-              <div>
-                <p className="font-bold text-slate-800">Mobil Mutfak</p>
-                <p className="text-slate-500 italic text-xs">Dinamik Rota Takibi</p>
-              </div>
-            </div>
+          <div className="flex flex-col sm:flex-row gap-4">
+            <button
+              onClick={onStart}
+              className="group flex items-center justify-center gap-3 bg-orange-500 text-white px-10 py-5 rounded-2xl text-lg font-black shadow-2xl shadow-orange-500/30 hover:bg-orange-600 transition-all hover:-translate-y-1 cursor-pointer"
+            >
+              Haritaya Git
+              <ChevronRight className="w-6 h-6 group-hover:translate-x-1 transition-transform" />
+            </button>
+            <a 
+              href={contactUrl}
+              className="flex items-center justify-center gap-3 bg-white border-2 border-orange-100 text-slate-700 px-10 py-5 rounded-2xl text-lg font-bold hover:bg-orange-50 transition-all cursor-pointer"
+            >
+              Geri Bildirim Paylaş
+            </a>
           </div>
         </motion.div>
 
         <motion.div
-          initial={{ opacity: 0, scale: 0.8 }}
+          initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 1, delay: 0.2 }}
-          className="relative hidden lg:block"
+          className="relative"
         >
-          <div className="relative z-10 w-full aspect-square rounded-[3.5rem] overflow-hidden shadow-2xl shadow-orange-900/10 border-8 border-white p-4 bg-slate-100 flex items-center justify-center">
-            <img 
-              src="/hero-image.svg" 
-              alt="İstanbul Dayanışma Haritası" 
-              className="w-full h-full object-cover rounded-[2.5rem]"
-              onError={(e) => {
-                // Final fallback if even the local SVG fails (highly unlikely)
-                e.currentTarget.style.display = 'none';
-                e.currentTarget.parentElement!.classList.add('bg-gradient-to-br', 'from-orange-400', 'to-orange-600');
-              }}
+          <div className="w-full aspect-square rounded-[4rem] bg-gradient-to-br from-orange-400 to-orange-700 shadow-3xl shadow-orange-500/20 flex items-center justify-center relative overflow-hidden group">
+            {/* Visual element representing a map/solidarity */}
+            <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-10" />
+            <motion.div
+              animate={{ rotate: 360 }}
+              transition={{ duration: 50, repeat: Infinity, ease: "linear" }}
+              className="absolute w-[150%] h-[150%] border-[20px] border-white/5 rounded-full"
             />
-          </div>
-          
-          <div className="absolute -bottom-8 -left-8 z-30 p-8 bg-white rounded-3xl shadow-xl border border-orange-50">
-            <div className="text-[10px] text-slate-400 font-mono tracking-tighter">
-              NOMINATIM CACHE: ACTIVE (154 ADDR)
+            
+            <div className="z-10 flex flex-col items-center text-center px-12">
+              <div className="w-32 h-32 bg-white rounded-4xl flex items-center justify-center shadow-2xl mb-8 group-hover:scale-110 transition-transform duration-500">
+                <MapIcon className="w-16 h-16 text-orange-500" />
+              </div>
+              <h3 className="text-4xl font-black text-white mb-4 tracking-tighter">Dayanışma Güç Verir</h3>
+              <p className="text-orange-100 font-medium">İstanbul genelinde her gün <br/> 300.000+ porsiyon yemek paylaşılıyor.</p>
+            </div>
+
+            {/* Floating stats */}
+            <div className="absolute top-12 right-12 bg-white p-6 rounded-3xl shadow-2xl border border-orange-50 animate-bounce-slow">
+              <div className="text-4xl font-black text-orange-500">39</div>
+              <div className="text-[10px] font-black uppercase text-slate-400 tracking-widest">İlçe Kapsamı</div>
             </div>
           </div>
         </motion.div>
       </main>
 
-      <footer className="relative z-10 max-w-7xl mx-auto px-8 pb-12 opacity-40 text-xs flex justify-between items-center">
-        <p>&copy; 2024 İstanbul Yemek Dayanışma Projesi.</p>
-        <div className="flex space-x-4">
-          <span>Açık Veri</span>
-          <span>OpenStreetMap</span>
+      {/* Data Sources Section */}
+      <section id="data-sources" className="bg-white py-24 border-t border-orange-100">
+        <div className="max-w-7xl mx-auto px-6">
+          <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-8">
+            <div>
+              <h2 className="text-4xl font-black text-slate-900 mb-4 tracking-tight">Veri Kaynaklarımız</h2>
+              <p className="text-slate-500 text-lg max-w-xl">Platformuzun doğruluk payını artırmak için farklı resmi ve yerel kaynaklardan yararlanıyoruz.</p>
+            </div>
+            <div className="flex items-center gap-2 text-xs font-black uppercase text-orange-400 tracking-[0.3em]">
+              <Database className="w-5 h-5" />
+              Verified Sources
+            </div>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {[
+              { title: 'Google Sheets Veri Seti', desc: 'Güncel dağıtım noktalarının dinamik listesi', link: 'https://docs.google.com/spreadsheets/d/e/2PACX-1vSYYjcr9xi5IxIdmY94SgYg8XF65jhk9KrUJp9lGX6hmCfSKo_RBqiTy599yysuezLY31sExGeY2lj_/pub?output=csv' },
+              { title: 'İstanbul B. Belediyesi', desc: 'Resmi Aşevleri ve Kent Lokantaları verisi', link: 'https://www.ibb.istanbul' },
+              { title: 'Açık Veri Kaynakları', desc: 'Şehir rehberleri ve topluluk paylaşımları', link: 'https://data.ibb.gov.tr/' },
+              { title: 'Saha Araştırması', desc: 'Gönüllüler tarafından yerinde teyit edilen bilgiler', link: '#' }
+            ].map((source, i) => (
+              <motion.a
+                key={i}
+                href={source.link}
+                target="_blank"
+                rel="noopener noreferrer"
+                whileHover={{ y: -5 }}
+                className="p-8 rounded-[2rem] border border-orange-50 bg-orange-50/30 hover:bg-white hover:shadow-2xl hover:border-orange-200 transition-all flex flex-col justify-between group"
+              >
+                <div>
+                  <div className="w-12 h-12 bg-white rounded-2xl flex items-center justify-center text-orange-500 shadow-sm mb-6 group-hover:bg-orange-500 group-hover:text-white transition-colors">
+                    <Database className="w-6 h-6" />
+                  </div>
+                  <h3 className="text-xl font-bold text-slate-900 mb-3 leading-tight">{source.title}</h3>
+                  <p className="text-slate-500 text-sm leading-relaxed">{source.desc}</p>
+                </div>
+                <div className="mt-8 flex items-center gap-2 text-orange-500 font-bold text-[10px] uppercase tracking-widest">
+                  Kaynağı Gör <ExternalLink className="w-3 h-3" />
+                </div>
+              </motion.a>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Footer */}
+      <footer className="bg-slate-900 text-white py-16">
+        <div className="max-w-7xl mx-auto px-6">
+          <div className="grid md:grid-cols-2 gap-12 items-center mb-16">
+            <div>
+              <div className="flex items-center gap-3 font-black text-3xl tracking-tighter mb-6">
+                <div className="w-10 h-10 bg-orange-500 rounded-xl flex items-center justify-center">
+                  <Utensils className="w-6 h-6 text-white" />
+                </div>
+                <span>İstYemek</span>
+              </div>
+              <p className="text-slate-400 text-lg leading-relaxed max-w-md">
+                Bu proje, İstanbul’daki aşevleri ve yemek dağıtım noktalarına erişimi kolaylaştırmak amacıyla geliştirilmiştir. Toplumsal dayanışma için açık veri gücüne güveniyoruz.
+              </p>
+            </div>
+            
+            <div className="flex flex-wrap gap-4 md:justify-end">
+              <a href={contactUrl} className="bg-white/10 hover:bg-white/20 px-8 py-4 rounded-2xl font-bold flex items-center gap-3 transition-all border border-white/5">
+                <Mail className="w-5 h-5 text-orange-500" />
+                Bize Ulaşın
+              </a>
+              <button onClick={onStart} className="bg-orange-500 hover:bg-orange-600 px-8 py-4 rounded-2xl font-bold flex items-center gap-3 transition-all shadow-lg shadow-orange-500/20">
+                <MapIcon className="w-5 h-5" />
+                Haritayı Aç
+              </button>
+            </div>
+          </div>
+          
+          <div className="pt-12 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-8 text-sm text-slate-500 font-medium tracking-tight">
+            <p>&copy; 2024 İstanbul Yemek Dayanışma Projesi. Tüm hakları saklıdır.</p>
+            <div className="flex gap-10">
+              <a href="https://docs.google.com/spreadsheets/d/e/2PACX-1vSYYjcr9xi5IxIdmY94SgYg8XF65jhk9KrUJp9lGX6hmCfSKo_RBqiTy599yysuezLY31sExGeY2lj_/pub?output=csv" target="_blank" className="hover:text-white transition-colors">Açık Veri</a>
+              <a href="https://www.ibb.istanbul" target="_blank" className="hover:text-white transition-colors">İBB Destek</a>
+              <a href="https://www.openstreetmap.org" target="_blank" className="hover:text-white transition-colors">OSM contributors</a>
+            </div>
+          </div>
         </div>
       </footer>
     </div>

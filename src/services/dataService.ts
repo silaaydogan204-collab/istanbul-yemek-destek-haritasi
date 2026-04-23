@@ -1,5 +1,5 @@
 import Papa from 'papaparse';
-import { FoodPoint, GeocodeCache } from '../types';
+import { FoodPoint, GeocodeCache, PointType } from '../types';
 
 const CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vSYYjcr9xi5IxIdmY94SgYg8XF65jhk9KrUJp9lGX6hmCfSKo_RBqiTy599yysuezLY31sExGeY2lj_/pub?output=csv';
 const CACHE_KEY = 'istanbul_food_map_cache';
@@ -12,14 +12,29 @@ export async function fetchFoodPoints(): Promise<FoodPoint[]> {
       complete: (results) => {
         const data = results.data as any[];
         const points: FoodPoint[] = data
-          .filter(row => row['Mekan Adı'] || row['Adres']) // Basic filter for empty rows
-          .map((row, index) => ({
-            id: index.toString(),
-            name: row['Mekan Adı'] || 'İsimsiz Mekan',
-            district: row['İlçe'] || '',
-            address: row['Adres'] || '',
-            phone: row['Telefon'] || row['İletişim'] || '',
-          }));
+          .filter(row => row['Mekan Adı'] || row['Adres'])
+          .map((row, index) => {
+            const rawType = row['Tür'] || row['Kategori'] || '';
+            let type: PointType = 'Dağıtım Noktası';
+            if (rawType.toLowerCase().includes('aşevi')) type = 'Aşevi';
+            else if (rawType.toLowerCase().includes('kent lokantası') || rawType.toLowerCase().includes('lokanta')) type = 'Kent Lokantası';
+
+            // Check if explicitly mentioned as Paid or Free
+            const rawFree = row['Ücretsiz mi?'] || row['Ücret'] || '';
+            const isFree = rawFree.toLowerCase().includes('evet') || rawFree.toLowerCase().includes('ücretsiz') || !rawFree.toLowerCase().includes('ücretli');
+
+            return {
+              id: index.toString(),
+              name: row['Mekan Adı'] || 'İsimsiz Mekan',
+              district: row['İlçe'] || '',
+              address: row['Adres'] || '',
+              phone: row['Telefon'] || row['İletişim'] || '',
+              type,
+              hours: row['Çalışma Saatleri'] || row['Saat'] || 'Belirtilmedi',
+              isFree,
+              notes: row['Notlar'] || row['Not'] || '',
+            };
+          });
         resolve(points);
       },
       error: (error) => reject(error),
