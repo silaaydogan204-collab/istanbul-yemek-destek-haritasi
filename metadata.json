@@ -1,0 +1,6 @@
+{
+  "name": "İstanbul Yemek Haritası",
+  "description": "İstanbul'daki yemek dağıtım noktalarını gösteren interaktif koordinat destekli harita uygulaması.",
+  "requestFramePermissions": [],
+  "majorCapabilities": []
+}

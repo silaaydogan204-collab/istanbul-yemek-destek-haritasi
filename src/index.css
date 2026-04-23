@@ -1,0 +1,41 @@
+@import "tailwindcss";
+@import "leaflet/dist/leaflet.css";
+
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --color-primary: #f97316; /* orange-500 */
+  --color-primary-dark: #ea580c; /* orange-600 */
+  --color-primary-deep: #7c2d12; /* orange-900 */
+  --color-accent: #15803d; /* green-700 */
+  --color-accent-bg: #dcfce7; /* green-100 */
+}
+
+html, body, #root {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+.leaflet-container {
+  width: 100%;
+  height: 100%;
+  background: #f8fafc; /* slate-50 */
+}
+
+/* Custom Leaflet Tooltip & Popup Overrides */
+.leaflet-tooltip.custom-tooltip {
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  padding: 0;
+}
+
+.leaflet-popup.custom-popup .leaflet-popup-content-wrapper {
+  border-radius: 1.5rem;
+  padding: 8px;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+}
+
+.leaflet-popup.custom-popup .leaflet-popup-tip {
+  background: white;
+}
