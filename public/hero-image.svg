@@ -1,0 +1,26 @@
+<svg width="800" height="800" viewBox="0 0 800 800" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="800" height="800" fill="url(#paint0_linear)"/>
+  <circle cx="400" cy="400" r="300" fill="white" fill-opacity="0.1"/>
+  <path d="M100 600C150 550 200 580 250 600C300 620 350 590 400 550C450 510 500 530 550 550C600 570 650 540 700 500" stroke="#FF9100" stroke-width="20" stroke-linecap="round" opacity="0.3"/>
+  
+  <!-- Stylized mosque silhouettes for Istanbul vibe -->
+  <path d="M150 650V450C150 438.954 158.954 430 170 430H230C241.046 430 250 438.954 250 450V650H150Z" fill="white" fill-opacity="0.2"/>
+  <circle cx="200" cy="430" r="30" fill="white" fill-opacity="0.2"/>
+  <rect x="195" y="350" width="10" height="80" fill="white" fill-opacity="0.3"/>
+  
+  <path d="M550 650V400C550 388.954 558.954 380 570 380H630C641.046 380 650 388.954 650 400V650H550Z" fill="white" fill-opacity="0.2"/>
+  <circle cx="600" cy="380" r="40" fill="white" fill-opacity="0.2"/>
+  <rect x="595" y="280" width="10" height="100" fill="white" fill-opacity="0.3"/>
+
+  <!-- Food Bowl Icon -->
+  <path d="M300 450C300 505.228 344.772 550 400 550C455.228 550 500 505.228 500 450H300Z" fill="white"/>
+  <rect x="350" y="420" width="100" height="15" rx="7.5" fill="#FF9100"/>
+  <path d="M380 400C380 380 390 370 400 370C410 370 420 380 420 400" stroke="#FF9100" stroke-width="8" stroke-linecap="round"/>
+
+  <defs>
+    <linearGradient id="paint0_linear" x1="0" y1="0" x2="800" y2="800" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#F97316"/>
+      <stop offset="1" stop-color="#EA580C"/>
+    </linearGradient>
+  </defs>
+</svg>

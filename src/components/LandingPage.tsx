@@ -1,5 +1,5 @@
 import { motion } from 'motion/react';
-import { MapPin, Utensils, Heart, ChevronRight } from 'lucide-react';
+import { ChevronRight, Utensils } from 'lucide-react';
 
 interface LandingPageProps {
   onStart: () => void;
@@ -20,9 +20,9 @@ export default function LandingPage({ onStart }: LandingPageProps) {
           <span>İstYemek</span>
         </div>
         <div className="flex items-center space-x-6 text-sm font-medium text-slate-600">
-          <button onClick={onStart} className="text-orange-600 hover:text-orange-700 transition-colors">Harita</button>
-          <button className="hover:text-orange-500 transition-colors">Hakkımızda</button>
-          <button className="bg-orange-500 text-white px-4 py-2 rounded-full hover:bg-orange-600 shadow-sm transition-all">Gönüllü Ol</button>
+          <button onClick={onStart} className="text-orange-600 hover:text-orange-700 transition-colors cursor-pointer">Harita</button>
+          <button className="hover:text-orange-500 transition-colors cursor-pointer">Hakkımızda</button>
+          <button className="bg-orange-500 text-white px-4 py-2 rounded-full hover:bg-orange-600 shadow-sm transition-all cursor-pointer">Gönüllü Ol</button>
         </div>
       </nav>
 
@@ -49,7 +49,7 @@ export default function LandingPage({ onStart }: LandingPageProps) {
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
             onClick={onStart}
-            className="group flex items-center gap-3 bg-orange-500 text-white px-10 py-5 rounded-full text-lg font-bold shadow-xl shadow-orange-500/20 hover:bg-orange-600 transition-all"
+            className="group flex items-center gap-3 bg-orange-500 text-white px-10 py-5 rounded-full text-lg font-bold shadow-xl shadow-orange-500/20 hover:bg-orange-600 transition-all cursor-pointer"
           >
             Haritayı Keşfet
             <ChevronRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
@@ -79,16 +79,20 @@ export default function LandingPage({ onStart }: LandingPageProps) {
           transition={{ duration: 1, delay: 0.2 }}
           className="relative hidden lg:block"
         >
-          <div className="relative z-10 w-full aspect-square rounded-[3.5rem] overflow-hidden shadow-2xl shadow-orange-900/10 border-8 border-white p-4 bg-slate-100">
+          <div className="relative z-10 w-full aspect-square rounded-[3.5rem] overflow-hidden shadow-2xl shadow-orange-900/10 border-8 border-white p-4 bg-slate-100 flex items-center justify-center">
             <img 
-              src="https://images.unsplash.com/photo-1488459739036-cd904047738e?auto=format&fit=crop&q=80&w=1000" 
-              alt="İstanbul Food Distribution" 
+              src="/hero-image.svg" 
+              alt="İstanbul Dayanışma Haritası" 
               className="w-full h-full object-cover rounded-[2.5rem]"
-              referrerPolicy="no-referrer"
+              onError={(e) => {
+                // Final fallback if even the local SVG fails (highly unlikely)
+                e.currentTarget.style.display = 'none';
+                e.currentTarget.parentElement!.classList.add('bg-gradient-to-br', 'from-orange-400', 'to-orange-600');
+              }}
             />
           </div>
           
-          <div className="absolute -bottom-8 -left-8 z-30 p-8 border-r border-orange-100 bg-white rounded-3xl shadow-xl border border-orange-50">
+          <div className="absolute -bottom-8 -left-8 z-30 p-8 bg-white rounded-3xl shadow-xl border border-orange-50">
             <div className="text-[10px] text-slate-400 font-mono tracking-tighter">
               NOMINATIM CACHE: ACTIVE (154 ADDR)
             </div>
